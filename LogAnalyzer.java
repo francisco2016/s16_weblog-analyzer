@@ -38,14 +38,19 @@ public class LogAnalyzer
         // Create the reader to obtain the data.
         reader = new LogfileReader(name);
     }
-
-    //     /**
-    //      *método que se pueda ejecutar después del métodoanalyzeHourlyData y que devuelva el número total de accesos 
-    //      *al servidor web registrados en el archivo de log.
-    //      */
-    //     public int numberOfAccesses(){
-    //         return ;
-    //     }
+    
+    /**
+     *método que se pueda ejecutar después del métodoanalyzeHourlyData y que devuelva el número total de accesos 
+     *al servidor web registrados en el archivo de log. --------------------------------------- 0073
+     */
+    public int numberOfAccesses(){
+        int totalYamadas = 0;
+        for(int i = 0; i < hourCounts.length; i++){
+            totalYamadas = totalYamadas + hourCounts[i];
+        }
+        
+        return totalYamadas ;
+    }
 
     /**
      * Analyze the hourly access data from the log file.
