@@ -38,7 +38,7 @@ public class LogAnalyzer
         // Create the reader to obtain the data.
         reader = new LogfileReader(name);
     }
-    
+
     /**
      *método que se pueda ejecutar después del métodoanalyzeHourlyData y que devuelva el número total de accesos 
      *al servidor web registrados en el archivo de log. --------------------------------------- 0073
@@ -48,8 +48,30 @@ public class LogAnalyzer
         for(int i = 0; i < hourCounts.length; i++){
             totalYamadas = totalYamadas + hourCounts[i];
         }
-        
+
         return totalYamadas ;
+    }
+
+    /**
+     *mt que se pueda ejecutar después del método analyzeHourlyData y que devuelva en qué hora el servidor tuvo que responder
+     *a más peticiones. Si hay empate devuelve la última de las horas. Si no ha habido accesos informa del hecho por pantalla 
+     *y devuelve -1.  ---------------------------------------------------------------------------------------------  0073
+     */
+    public int busiestHour(){
+        int conMasPeticiones = 0;
+        int solucion = -1;
+        for(int i = 0; i < hourCounts.length; i ++){
+            if(hourCounts[i] >= conMasPeticiones){// -- (>= para que en caso de empate, guarde el segundo valor).
+                conMasPeticiones = hourCounts[i];
+            }
+            if(hourCounts[i] == conMasPeticiones){
+                solucion = i;
+            }            
+        }
+        if(solucion == -1){
+            System.out.println("Ninguna entrada. ");
+        }
+        return solucion;
     }
 
     /**
