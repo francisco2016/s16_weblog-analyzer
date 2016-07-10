@@ -73,7 +73,31 @@ public class LogAnalyzer
         }
         return solucion;
     }
-
+    
+        /**
+     *  devuelva la hora a la que el servidor estuvo menos sobrecargado. Si hay empate devuelve la última de las horas. 
+     *  Para testear este método asegúrate de que lo pruebas con un archivo de log en el que ha habido accesos a todas las horas.
+     *  Si no ha habido accesos informa del hecho por pantalla y devuelve -1. -------------------------------------- 0705
+     */
+    public int quietestHour(){
+        int conMenosPeticiones = numberOfAccesses();
+        int solucion = -1;
+        if(numberOfAccesses() == 0){
+            System.out.println("Ninguna entrada. ");
+        }
+        else{
+            for(int i = 0; i < hourCounts.length; i ++){
+                if(hourCounts[i] <= conMenosPeticiones){// -- (>= para que en caso de empate, guarde el segundo valor).
+                    conMenosPeticiones = hourCounts[i];
+                }
+                if(hourCounts[i] == conMenosPeticiones){
+                    solucion = i;
+                }            
+            }
+        }
+        return solucion;
+    }
+    
     /**
      * Analyze the hourly access data from the log file.
      */
