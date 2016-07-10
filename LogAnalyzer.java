@@ -54,7 +54,7 @@ public class LogAnalyzer
 
     /**
      *mt que se pueda ejecutar después del método analyzeHourlyData y que devuelva en qué hora el servidor tuvo que responder
-     *a más peticiones. Si hay empate devuelve la última de las horas. Si no ha habido accesos informa del hecho por pantalla 
+     *a --más-- peticiones. Si hay empate devuelve la última de las horas. Si no ha habido accesos informa del hecho por pantalla 
      *y devuelve -1.  ---------------------------------------------------------------------------------------------  0073
      */
     public int busiestHour(){
@@ -73,9 +73,9 @@ public class LogAnalyzer
         }
         return solucion;
     }
-    
-        /**
-     *  devuelva la hora a la que el servidor estuvo menos sobrecargado. Si hay empate devuelve la última de las horas. 
+
+    /**
+     *  devuelva la hora a la que el servidor estuvo ---menos--- sobrecargado. Si hay empate devuelve la última de las horas. 
      *  Para testear este método asegúrate de que lo pruebas con un archivo de log en el que ha habido accesos a todas las horas.
      *  Si no ha habido accesos informa del hecho por pantalla y devuelve -1. -------------------------------------- 0705
      */
@@ -97,7 +97,36 @@ public class LogAnalyzer
         }
         return solucion;
     }
-    
+
+    /**
+     * muestre por pantalla el período de dos horas --consecutivas-- con más carga del día y devuelva un entero con la primera hora 
+     * de dicho periodo. Si hay empate devuelve el último período. Si no ha habido accesos informa del hecho por pantalla y 
+     * devuelve -1.  -----------------------------------------------------------------------------------------------  0705
+     */
+    public int cargaEnDosHoras(){
+        int conMasPeticiones = 0;
+        int solucion = -1;
+        if(numberOfAccesses() == 0){
+            System.out.println("Ninguna entrada. ");
+        }
+        else{
+            for(int i = 0; i < hourCounts.length; i ++){
+                int z =  ( (i +1)% hourCounts.length) ;
+                //System.out.println para hacer las sumas consecutivas y poder comprobar si la solución es correcta.
+                 System.out.println( i+ ": -- " + hourCounts[i]+ " + " +hourCounts[ z]  + "  =  "+ 
+                                      (hourCounts[i] +  hourCounts[ z]));
+                                      
+                if( ( hourCounts[i] + hourCounts[ z] ) >= conMasPeticiones){// -- (>= para que en caso de empate, guarde el segundo valor).
+                    solucion = i;
+                    conMasPeticiones = hourCounts[i] + hourCounts[z];
+
+                }   
+               
+            }
+        }
+        return solucion;
+    }
+
     /**
      * Analyze the hourly access data from the log file.
      */
