@@ -11,6 +11,8 @@ public class LogAnalyzer
     private int[] hourCounts;
     // Use a LogfileReader to access the data.
     private LogfileReader reader;
+    //para almacenar el nº de accesos que se tienen en un día. --------------------------------------------- 0074
+    int[] accesosDia;
 
     /**
      * Create an object to analyze hourly web accesses.
@@ -22,6 +24,7 @@ public class LogAnalyzer
         hourCounts = new int[24];
         // Create the reader to obtain the data.
         reader = new LogfileReader();
+        accesosDia = new int[31];
     }
 
     /**
@@ -131,22 +134,9 @@ public class LogAnalyzer
      * Analyze the hourly accesses only in the given date  ---Analiza sólo los accesos de una hora en la fecha dada.
      * @param day   The given day
      * @param month The given month
-     * @param year  The given year
+     * @param year  The given year-------------------------------------------------------------------------------  0074
      */
     public void accesosEnUnaHoraDeUnaFechaDada(int day, int month, int year){
-        //         int solu = 0;
-        //         int index = 0;
-        //         boolean encontrado = true;
-        //         LogEntry logEntry = null;
-        //         while(index < hourCounts.length && encontrado){
-        //             if(logEntry.getDay() == day && logEntry.getDay() == month && logEntry.getDay() == year){
-        //                 solu = hourCounts[index];
-        //                 encontrado = false;
-        //             }
-        //             index ++;
-        //         }
-        //         return solu;
-        //////////////////////////////////////////////////////////////////
         while(reader.hasNext()) {
             LogEntry entry = reader.next();
             if ((entry.getYear() == year) && 
