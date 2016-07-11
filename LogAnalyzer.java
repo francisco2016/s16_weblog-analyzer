@@ -148,17 +148,28 @@ public class LogAnalyzer
             }
         }
     }
-    
-      /**
+
+    /**
      * Analiza el archivo de log contando los accesos por dias -------------------------------------------------   0074
      */
     public void analyzeDailyData() 
     {
-      while(reader.hasNext()) {
-      	 LogEntry entry = reader.next();
-        int dia = entry.getDay(); 
-        accesosDia[dia-1]++;
-      }
+        while(reader.hasNext()) {
+            LogEntry entry = reader.next();
+            int dia = entry.getDay(); 
+            accesosDia[dia-1]++;
+        }
+    }
+
+    /**
+     * Imprime los accesos que ha habido cada día-------------------------------------------------   0074
+     */
+    public void printDailyCounts ()
+    {
+        for(int cont = 1; accesosDia.length > cont; cont++ ) {
+            System.out.println("Dia " + (cont+ 1) + " : " + accesosDia[cont]);
+
+        }
     }
 
     /**
