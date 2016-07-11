@@ -113,18 +113,50 @@ public class LogAnalyzer
             for(int i = 0; i < hourCounts.length; i ++){
                 int z =  ( (i +1)% hourCounts.length) ;
                 //System.out.println para hacer las sumas consecutivas y poder comprobar si la solución es correcta.
-                 System.out.println( i+ ": -- " + hourCounts[i]+ " + " +hourCounts[ z]  + "  =  "+ 
-                                      (hourCounts[i] +  hourCounts[ z]));
-                                      
+                System.out.println( i+ ": -- " + hourCounts[i]+ " + " +hourCounts[ z]  + "  =  "+ 
+                    (hourCounts[i] +  hourCounts[ z]));
+
                 if( ( hourCounts[i] + hourCounts[ z] ) >= conMasPeticiones){// -- (>= para que en caso de empate, guarde el segundo valor).
                     solucion = i;
                     conMasPeticiones = hourCounts[i] + hourCounts[z];
 
                 }   
-               
+
             }
         }
         return solucion;
+    }
+
+    /**
+     * Analyze the hourly accesses only in the given date  ---Analiza sólo los accesos de una hora en la fecha dada.
+     * @param day   The given day
+     * @param month The given month
+     * @param year  The given year
+     */
+    public void accesosEnUnaHoraDeUnaFechaDada(int day, int month, int year){
+        //         int solu = 0;
+        //         int index = 0;
+        //         boolean encontrado = true;
+        //         LogEntry logEntry = null;
+        //         while(index < hourCounts.length && encontrado){
+        //             if(logEntry.getDay() == day && logEntry.getDay() == month && logEntry.getDay() == year){
+        //                 solu = hourCounts[index];
+        //                 encontrado = false;
+        //             }
+        //             index ++;
+        //         }
+        //         return solu;
+        //////////////////////////////////////////////////////////////////
+        while(reader.hasNext()) {
+            LogEntry entry = reader.next();
+            if ((entry.getYear() == year) && 
+            (entry.getMonth() == month) && 
+            (entry.getDay() == day))
+            {
+                int hour = entry.getHour();
+                hourCounts[hour]++;
+            }
+        }
     }
 
     /**
