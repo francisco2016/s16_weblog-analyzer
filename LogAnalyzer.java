@@ -12,7 +12,7 @@ public class LogAnalyzer
     // Use a LogfileReader to access the data.
     private LogfileReader reader;
     //para almacenar el nº de accesos que se tienen en un día. --------------------------------------------- 0074
-    int[] accesosDia;
+    private int[] accesosDia;
 
     /**
      * Create an object to analyze hourly web accesses.
@@ -147,6 +147,18 @@ public class LogAnalyzer
                 hourCounts[hour]++;
             }
         }
+    }
+    
+      /**
+     * Analiza el archivo de log contando los accesos por dias -------------------------------------------------   0074
+     */
+    public void analyzeDailyData() 
+    {
+      while(reader.hasNext()) {
+      	 LogEntry entry = reader.next();
+        int dia = entry.getDay(); 
+        accesosDia[dia-1]++;
+      }
     }
 
     /**
